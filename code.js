@@ -1,8 +1,8 @@
-// Created by: ????
-// Created on: ???? 2019
-// This file is the "????" game
-//   for CircuitPython
-
+enum ActionKind {
+    Walking,
+    Idle,
+    Jumping
+}
 namespace myTiles {
     //% blockIdentity=images._tile
     export const tile0 = img`
@@ -25,11 +25,8 @@ namespace myTiles {
     `
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.chestClosed, function (sprite, location) {
-    music.playMelody("C5 - C5 - - - - - ", 400)
+    music.playMelody("C5 B C5 B F E D C ", 400)
     game.over(true)
-})
-info.onCountdownEnd(function () {
-    info.changeScoreBy(-5)
 })
 let mySprite = sprites.create(img`
     . . . . . . f f f f f f . . . .
@@ -51,15 +48,15 @@ let mySprite = sprites.create(img`
 `, SpriteKind.Player)
 controller.moveSprite(mySprite)
 tiles.setTilemap(tiles.createTilemap(
-            hex`100010000e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e1817171717171a171717171717170e0e1a1a1a1717171a17171717171a1a0e0e171b1a171a171a1717171a1717170e0e1a1a1a1a1a171a1717171a1717170e0e171717171a171a1a1a1a1a1717170e0e1a171a171717171717171a1717170e0e17171a1a1a1a1a1a1a171717171a0e0e171a1b17171717171a171a171a1a0e0e1717171a1a171a171a1717171a17190e171a171a17171a17171717171a170e0e171a171a171a1a1a1a171a1a17170e0e171a171a171a17171a1a1a17171a0e0e171a1a1a1b1a171a1a1717171a1a0e0e17171b1b1b1b1b1717171b1b1b1b0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e`,
+            hex`100010000e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e1111111111110e111111111111110e0e0e0e0e1111111111111111110e0e0e0e11110e110e110e0e0e110e1111110e0e0e0e0e0e0e110e1111110e1111110e0e111111110e110e0e0e110e1111110e0e0e110e11111111110e110e1111110e0e11110e0e0e0e0e0e0e111111110e0e0e110e1111111111110e110e110e0e0e0e1111110e0e110e110e1111110e11190e110e110e11110e11111111110e110e0e110e110e110e0e0e0e110e0e11110e0e110e110e110e11110e0e0e11110e0e0e110e0e0e110e110e0e1111110e0e0e0e11111111111111111111111111110e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e`,
             img`
                 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
                 2 . . . . . . 2 . . . . . . . 2
-                2 2 2 2 . . . 2 . . . . . 2 2 2
-                2 . . 2 . 2 . 2 . . . 2 . . . 2
+                2 2 2 2 . . . . . . . . . 2 2 2
+                2 . . 2 . 2 . 2 2 2 . 2 . . . 2
                 2 2 2 2 2 2 . 2 . . . 2 . . . 2
-                2 . . . . 2 . 2 2 2 2 2 . . . 2
-                2 2 . 2 . . . . . . . 2 . . . 2
+                2 . . . . 2 . 2 2 2 . 2 . . . 2
+                2 2 . 2 . . . . . 2 . 2 . . . 2
                 2 . . 2 2 2 2 2 2 2 . . . . 2 2
                 2 . 2 . . . . . . 2 . 2 . 2 2 2
                 2 . . . 2 2 . 2 . 2 . . . 2 . .
@@ -70,11 +67,10 @@ tiles.setTilemap(tiles.createTilemap(
                 2 . . . . . . . . . . . . . . 2
                 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
             `,
-            [myTiles.tile0,sprites.dungeon.darkGroundCenter,sprites.dungeon.hazardLava1,sprites.dungeon.hazardWater,sprites.dungeon.stairSouth,sprites.dungeon.hazardLava0,sprites.builtin.field0,sprites.dungeon.buttonOrangeDepressed,sprites.dungeon.buttonOrange,sprites.dungeon.buttonTeal,sprites.dungeon.buttonTealDepressed,sprites.dungeon.stairNorth,sprites.dungeon.stairEast,sprites.dungeon.stairWest,sprites.builtin.brick,sprites.dungeon.collectibleInsignia,sprites.builtin.coral1,sprites.castle.tileGrass2,sprites.builtin.forestTiles21,sprites.builtin.forestTiles18,sprites.builtin.forestTiles19,sprites.builtin.forestTiles26,sprites.dungeon.collectibleRedCrystal,sprites.dungeon.darkGroundNorthWest1,sprites.dungeon.darkGroundEast,sprites.dungeon.chestClosed,sprites.dungeon.floorLight0,sprites.dungeon.darkGroundSouthEast1],
+            [myTiles.tile0,sprites.dungeon.darkGroundCenter,sprites.dungeon.hazardLava1,sprites.dungeon.hazardWater,sprites.dungeon.stairSouth,sprites.dungeon.hazardLava0,sprites.builtin.field0,sprites.dungeon.buttonOrangeDepressed,sprites.dungeon.buttonOrange,sprites.dungeon.buttonTeal,sprites.dungeon.buttonTealDepressed,sprites.dungeon.stairNorth,sprites.dungeon.stairEast,sprites.dungeon.stairWest,sprites.builtin.brick,sprites.dungeon.collectibleInsignia,sprites.builtin.coral1,sprites.castle.tileGrass2,sprites.builtin.forestTiles21,sprites.builtin.forestTiles18,sprites.builtin.forestTiles19,sprites.builtin.forestTiles26,sprites.dungeon.collectibleRedCrystal,sprites.dungeon.darkGroundNorthWest1,sprites.dungeon.darkGroundEast,sprites.dungeon.chestClosed,sprites.dungeon.floorLight0,sprites.dungeon.darkGroundSouthEast1,sprites.castle.tilePath5],
             TileScale.Sixteen
         ))
-tiles.placeOnRandomTile(mySprite, sprites.dungeon.darkGroundEast)
+tiles.placeOnRandomTile(mySprite, sprites.castle.tileGrass2)
 scene.cameraFollowSprite(mySprite)
-info.changeScoreBy(11)
-info.changeScoreBy(-1)
-info.startCountdown(15)
+info.startCountdown(45)
+game.showLongText("Find the chest hidden in the maze to win!", DialogLayout.Bottom)
